@@ -29,13 +29,17 @@ input {
 	width: 300px;
 	height: 30px;
 	
-	border: 1px solid #000;
+	border: 1px solid #000000;
 	border-radius: 4px;
 
 	&:focus {
 	  border: 1px solid #8abdba;
+	  outline: 0;
+
 	}
 }
+
+
 
 .btn-search {
 	border: 1px solid #000;
