@@ -1,8 +1,8 @@
 
 import Notiflix from "notiflix";
-import PhotoApiService from "./photo-api-service";
-import { crateMarkup  } from "./create-markup";
-import LoadMoreBnt from "./load-more-btn";
+import PhotoApiService from "./js/photo-api-service";
+import { crateMarkup  } from "./js/create-markup";
+import LoadMoreBnt from "./js/load-more-btn";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
@@ -37,35 +37,38 @@ function onSearch(e) {
 			loadMoreBtn.hide();
 			Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
 			return;
+		} else if (data.hits.length < perPage)  {
+			Notiflix.Notify.info("We're sorry, but you've reached the end of search results.")
+			loadMoreBtn.hide();
+			loadMoreBtn.disabled();
 		}
+		
+		else {
+				Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
+				loadMoreBtn.show();
+		loadMoreBtn.enabled();
+			}
 
 		clearPhotoGallery();
 		appendPhotoMarcup(data);
 		newSimpleLightbox.refresh();
-		loadMoreBtn.show();
-		loadMoreBtn.enabled();
-
-		if(perPage > data.totalHits) {
-			Notiflix.Notify.info("We're sorry, but you've reached the end of search results.")
-			loadMoreBtn.hide();
-			loadMoreBtn.disabled();
-		} else {
-				Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`)
-		}
-
 	});	
-
-	
-	
-	
 }
 
 function onLoadMore() {
 	loadMoreBtn.disabled();
 	photoApiService.fetchPhoto().then(data => {
-		loadMoreBtn.enabled();
+		const perPage = 40;
+		if(data.hits.length < perPage) {
+			Notiflix.Notify.info("We're sorry, but you've reached the end of search results.")
+			loadMoreBtn.hide();
+			loadMoreBtn.disabled();
+			loadMoreBtn.enabled();
 		appendPhotoMarcup(data);
 		newSimpleLightbox.refresh();
+		}
+
+		
 		
 	});
 }
