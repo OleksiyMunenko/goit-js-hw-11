@@ -63,13 +63,11 @@ function onLoadMore() {
 			Notiflix.Notify.info("We're sorry, but you've reached the end of search results.")
 			loadMoreBtn.hide();
 			loadMoreBtn.disabled();
-			loadMoreBtn.enabled();
-		appendPhotoMarcup(data);
-		newSimpleLightbox.refresh();
 		}
 
-		
-		
+		loadMoreBtn.enabled();
+		appendPhotoMarcup(data);
+		newSimpleLightbox.refresh();		
 	});
 }
 
