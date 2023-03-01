@@ -68,7 +68,7 @@ function onLoadMore() {
 		loadMoreBtn.enabled();
 		appendPhotoMarcup(data);
 		newSimpleLightbox.refresh();		
-	});
+	})
 }
 
 function appendPhotoMarcup(data) {
